@@ -119,8 +119,8 @@ async function loadSheetData() {
     .then((data) => {
         newSpring = data.values[0][1]
         newSummer = data.values[1][1]
-        newAutumn = data.values[1][1]
-        newWinter = data.values[2][1]
+        newAutumn = data.values[2][1]
+        newWinter = data.values[3][1]
         
 
         updateBalance([newSpring,newSummer,newAutumn,newWinter])
