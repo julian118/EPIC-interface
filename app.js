@@ -105,8 +105,8 @@ async function loadSheetData() {
     const CELLRANGE = 'A2:B5'
     let  APIKEY = ''
     
-    // temporary solution but since i dont want to get into the backend,
-    // this seems like its the only way to hite my api key in the frontend
+    // temporary solution but since I dont want to get into the backend,
+    // this seems like its the only way to hide my api key in the frontend.
     APIKEY = document.getElementById('KEY').value
 
     url = 'https://sheets.googleapis.com/v4/spreadsheets/'+ SHEETID + '/values/'+ SHEETNAME + '!' + CELLRANGE + '?key=' + APIKEY;
