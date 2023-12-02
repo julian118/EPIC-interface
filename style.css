@@ -35,21 +35,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 50rem;
 }
 .spring {
-    width: 45rem;
-    background-color: #be7a80;
-}
-.summer {
-    width: 40rem;
     background-color: #75a165;
 }
+.summer {
+    background-color: #d2a865;
+}
 .fall {
-    width: 20rem;
     background-color: #b9684f;
 }
 .winter {
-    width: 50rem;
     background-color: #85a7b6;
 }
 .dropdown {
