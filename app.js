@@ -14,30 +14,12 @@ async function updateBalance(percentageArray) {
     balanceScore = calculateBalanceScore(percentageArray)
     elements.totalBalance.innerText = 'balance: ' + balanceScore + '%'
 
-    if (balanceScore < 70) {
-        background = elements.mainContent.style.background
-        switch (indexOfMax(percentageArray)) {
-            case 0:
-                elements.mainContent.style.background = game.springColor
-                break
-            case 1:
-                elements.mainContent.style.background = game.summerColor
-                break
-            case 2: 
-                elements.mainContent.style.background = game.autumnColor
-                break
-            case 3: 
-                elements.mainContent.style.background = game.winterColor
-                break
-        } 
+    // update global percentages
     game.spring = percentageArray[0]
     game.summer = percentageArray[1]
-    game.fall = percentageArray[2]
+    game.autumn = percentageArray[2]
     game.winter = percentageArray[3]
-    
-    } else {
-        elements.mainContent.style.background = '#d2b2a0'
-    }
+
     await sleep (2000)
 }
 
@@ -60,23 +42,6 @@ function sleep(ms) {
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
-function indexOfMax(arr) {
-    if (arr.length === 0) {
-        return -1;
-    }
-
-    var max = arr[0];
-    var maxIndex = 0;
-
-    for (var i = 1; i < arr.length; i++) {
-        if (arr[i] > max) {
-            maxIndex = i;
-            max = arr[i];
-        }
-    }
-
-    return maxIndex;
-}
 async function fluctuate() {
     while (true) {
         await updateBalance([game.spring * getRandomArbitrary(0.98,1.02),
@@ -89,12 +54,8 @@ async function fluctuate() {
 let game = {
     spring : 40,
     summer : 88,
-    fall : 85,
+    autumn : 85,
     winter : 95,
-    springColor : '#75a165',
-    summerColor : '#d2a865',
-    autumnColor : '#b9684f',
-    winterColor : '#85a7b6'
 }
 
 
@@ -112,6 +73,7 @@ async function loadSheetData() {
     url = 'https://sheets.googleapis.com/v4/spreadsheets/'+ SHEETID + '/values/'+ SHEETNAME + '!' + CELLRANGE + '?key=' + APIKEY;
     
     console.log('VISITING SHEET URL AT: ', url)
+    
     fetch(url)
     .then((response) => {
       return response.json();
@@ -122,7 +84,6 @@ async function loadSheetData() {
         newAutumn = data.values[2][1]
         newWinter = data.values[3][1]
         
-
         updateBalance([newSpring,newSummer,newAutumn,newWinter])
     })
 
