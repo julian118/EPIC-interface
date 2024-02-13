@@ -3,58 +3,50 @@ elements = {
     totalBalance : document.querySelector('.totalBalance'),
     mainContent : document.querySelector('.main-content')
 }
+let seasons = {
+    spring : 100,
+    summer : 100,
+    autumn : 100,
+    winter : 100,
+    balancedImage : "images/balanced.webp",
+    springImage : "images/spring.jpg",
+    summerImage : "images/summer.webp",
+    autumnImage : "images/autumn.jpg",
+    winterImage : "images/winter.jpg"
+}
 
-async function updateBalance(percentageArray) {
+async function updateBalance(percentageArray, visualOnly) {
     for (let i = 0; i < elements.bars.length; i++) {
-        season = elements.bars[i]
+        let season = elements.bars[i]
         season.style.width = (percentageArray[i] / 2) + 'rem'
-
     }
-    balanceScore = calculateBalanceScore(percentageArray)
-    elements.totalBalance.innerText = 'balance: ' + balanceScore + '%'
-
-    // update global percentages
-    game.spring = percentageArray[0]
-    game.summer = percentageArray[1]
-    game.autumn = percentageArray[2]
-    game.winter = percentageArray[3]
+    
+    // update global percentages if not just visual
+    if (!visualOnly) {
+        
+        seasons.spring = percentageArray[0]
+        seasons.summer = percentageArray[1]
+        seasons.autumn = percentageArray[2]
+        seasons.winter = percentageArray[3]
+    }
 
     await sleep (2000)
 }
 
-// gets the range between percentages
-function calculateBalanceScore(barScoreArray) { 
-  
-    const minPercentage = Math.min(...barScoreArray)
-    const maxPercentage = Math.max(...barScoreArray)
-
-    const range = maxPercentage - minPercentage
-
-    const balancedRange = 100 - range
-    const balanceScore = (balancedRange / 100) * 100
-
-    return balanceScore;
-  }
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms))
 }
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
-async function fluctuate() {
+async function fluctuate(range) {
     while (true) {
-        await updateBalance([game.spring * getRandomArbitrary(0.98,1.02),
-                        game.summer * getRandomArbitrary(0.98,1.02),
-                        game.fall * getRandomArbitrary(0.98,1.02), 
-                        game.winter * getRandomArbitrary(0.98,1.02)])
-        await sleep(300)
+        await updateBalance([seasons.spring * getRandomArbitrary(1-range,1+range),
+                             seasons.summer * getRandomArbitrary(1-range,1+range),
+                             seasons.autumn * getRandomArbitrary(1-range,1+range), 
+                             seasons.winter * getRandomArbitrary(1-range,1+range)], true)
+        await sleep(10)
     }
-}
-let game = {
-    spring : 40,
-    summer : 88,
-    autumn : 85,
-    winter : 95,
 }
 
 
@@ -65,9 +57,8 @@ async function loadSheetData() {
     const CELLRANGE = 'A2:B5'
     let  APIKEY = ''
     
-    // temporary solution but since I dont want to get into the backend,
-    // this seems like its the only way to hide my api key in the frontend.
-    APIKEY = document.getElementById('KEY').value
+    // gets the users api key from the input
+    APIKEY = localStorage.getItem("api-key");
 
     url = 'https://sheets.googleapis.com/v4/spreadsheets/'+ SHEETID + '/values/'+ SHEETNAME + '!' + CELLRANGE + '?key=' + APIKEY;
     
@@ -84,9 +75,13 @@ async function loadSheetData() {
         newWinter = data.values[3][1]
         
         updateBalance([newSpring,newSummer,newAutumn,newWinter])
-    })
+    }) 
+}
 
-    
+if (!localStorage.getItem("api-key")) {
+    let apiKeyInput = prompt("enter your api key")
+    localStorage.setItem("api-key", apiKeyInput)
 }
 
 loadSheetData()
+fluctuate(.05)
