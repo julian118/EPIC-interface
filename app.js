@@ -8,7 +8,6 @@ async function updateBalance(percentageArray) {
     for (let i = 0; i < elements.bars.length; i++) {
         season = elements.bars[i]
         season.style.width = (percentageArray[i] / 2) + 'rem'
-        season.innerHTML = Math.round(percentageArray[i]) + '%'
 
     }
     balanceScore = calculateBalanceScore(percentageArray)
@@ -48,7 +47,7 @@ async function fluctuate() {
                         game.summer * getRandomArbitrary(0.98,1.02),
                         game.fall * getRandomArbitrary(0.98,1.02), 
                         game.winter * getRandomArbitrary(0.98,1.02)])
-        await sleep(3000)
+        await sleep(300)
     }
 }
 let game = {
