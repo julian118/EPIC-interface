@@ -44,9 +44,10 @@
 </head>
 <body>
     <div class="dropdown-box">
-        <input type="password" placeholder="plaats hier de tijdelijke api-key" id="KEY">
+        <button onclick="promptApiKey()">re-enter API key</button>
         <button onclick="loadSheetData()">fetch data</button>
-        <a href="https://docs.google.com/spreadsheets/d/1DkKHbezIZ6JiIocJJM0PqOH3MgwLdknwgzckR78dyhM/edit#gid=0" target="_blank">visit sheet</a>
+        <button onclick="window.open('https://docs.google.com/spreadsheets/d/1DkKHbezIZ6JiIocJJM0PqOH3MgwLdknwgzckR78dyhM/edit#gid=0','_blank');">open spreadsheet</button>
+        <div>random fluctuations <input type="checkbox"></div>
     </div>
     <div class="main-content">
         
