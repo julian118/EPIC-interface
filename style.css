@@ -20,8 +20,7 @@ body {
     width: 100vw;
     height: 100vh;
     overflow-x: hidden;
-    background-color: #d2b2a0;
-    
+    background-color: #d2b2a0; 
 }
 .dropdown-box {
     display: flex;
@@ -89,7 +88,8 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 50rem;
+    max-width: 60rem;
+    min-width: 8rem;
 }
 .spring {
     background-color: #75a165;

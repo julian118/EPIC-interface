@@ -11,7 +11,7 @@ const seasonImages = {
         backgroundWidth : 180
     },
     springImage : {
-        url : "images/spring.jpg",
+        url : "images/spring2.jpg",
         backgroundWidth : 120
     },
     summerImage : {
@@ -38,7 +38,12 @@ function setBackground(url, width) {
     elements.mainContent.style.backgroundImage = "url('" + url + "')"
     elements.mainContent.style.backgroundSize =  "auto " + width + "%"
 }
+
+
+// updates the ui elements, if its not just visual it also updates the global variables
 async function updateBalance(percentageArray, visualOnly) {
+
+    // loops through percentage array and elements and upd
     for (let i = 0; i < elements.bars.length; i++) {
         let season = elements.bars[i]
         season.style.width = (percentageArray[i] / 2) + 'rem'
@@ -109,7 +114,6 @@ async function fluctuate(range) {
     }
 }
 
-
 // connects to google sheets and fetches the data to update the bars
 async function loadSheetData() {
     const SHEETID = '1DkKHbezIZ6JiIocJJM0PqOH3MgwLdknwgzckR78dyhM'
@@ -147,11 +151,18 @@ function promptApiKey() {
         localStorage.setItem("api-key", apiKeyInput)
     }   
 }
-
+document.body.onkeyup = function(e) {
+    if (e.key == " " ||
+        e.code == "Space" ||      
+        e.keyCode == 32      
+    ) {
+      loadSheetData()
+    }
+  }
 
 if (!localStorage.getItem("api-key")) {
     promptApiKey()
 }
 
 //loadSheetData()
-//fluctuate(.05)
+fluctuate(.1)
