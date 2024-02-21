@@ -75,6 +75,10 @@ h1 {
     margin-left: 2rem;
     font-size: 1.3rem;
 }
+.season-meters {
+    margin-left: 22rem;
+    width: 100vw;
+}
 .bar {
     width: 50rem;
     margin: 1rem;
@@ -106,6 +110,11 @@ h1 {
 .dropdown {
     position: absolute;
     top: -3rem;
+}
+@media only screen and (max-width: 1200px) {
+    :root {
+        font-size: 14px;
+    }
 }
 @media only screen and (max-width: 930px) {
     :root {

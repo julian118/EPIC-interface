@@ -165,4 +165,4 @@ if (!localStorage.getItem("api-key")) {
 }
 
 //loadSheetData()
-fluctuate(.1)
+fluctuate(0.2)
